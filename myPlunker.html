@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+
+<head>
+<style>
+input {
+width: 150px;position:absolute;left:70px;
+}
+body {font:16px calibri;}
+input.ng-invalid {background-color:pink;}
+input.ng-pristine {background-color:white;} 
+
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.4/angular.min.js"></script>
+<script>
+angular.module("StudentInfo", []).controller("sInfoController", function($scope) {
+	var allBranches = ["CSE", "ECE", "EEE", "IN"];
+	$scope.Branches = allBranches;
+});
+</script>
+</head>
+
+<body ng-app="StudentInfo">
+<div ng-controller="sInfoController">
+<form name="myArea" novalidate>
+<label>Name:</label>
+<input type="text" name="SName" ng-model="student.Name" placeholder="Enter name" ng-pattern="/^[a-zA-Z ]+$/" required>
+<p ng-if="myArea.SName.$dirty && myArea.SName.$invalid"> Name is not Valid</p> 
+
+<hr>    
+<label>Branch:</label>
+<select ng-model="student.Branch" ng-options="branch for branch in Branches" required></select>
+
+<hr> 
+<label>Age:</label>
+<input type="text" name="Age" ng-model="student.Age" placeholder="Enter Age" ng-pattern="/^[0-9]+$/" required>
+<p ng-if="myArea.Age.$dirty && myArea.Age.$invalid"> Age is not Valid</p>
+<hr>
+<label>Address:</label>
+<input type="textarea" name="Address" ng-model="student.Address" placeholder="Address" ng-pattern="/^[a-zA-z0-9 ]+$/" required>
+<p ng-if="myArea.Address.$dirty && myArea.Address.$invalid"> Address is not Valid</p>
+<hr>
+
+
+<hr>
+<div  ng-if="myArea.$dirty">
+<div ng-if="myArea.$valid">
+<input  type="button" value="submit"></input>
+<p id="valid" style="color:Green;padding-top:40px;position:relative">
+Form Valid For Submission !!!</p>
+</div>
+<div ng-if="myArea.$invalid">
+<p style="color:Red" id="invalid">Not Whole Form  Valid For Submission !!!</p>
+</div>
+</div>
+</form>
+</div>
+</body>
+
+</html>
